@@ -7,6 +7,7 @@ import {SURAH_LIST, SURAH_LIST_LOADER} from '../Redux/actionType';
 import {connect} from 'react-redux';
 import {GetData, StartLoader, SelectedSurahId, ResetData} from '../Redux/actions';
 import {Loader} from '../loader';
+//import moment from 'moment';
  
 class SurahList extends Component {
   constructor(props){
@@ -64,6 +65,8 @@ export default connect(mapStateToProps, {GetData, StartLoader, SelectedSurahId, 
 
 class IndividualListItem extends Component{
    secondsToHms =(d)=> {
+    // moment((d)._d).format('HH')==='00'?moment(this.props.playBackStatus.positionMillis).format('mm:ss'):moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH:mm:ss')
+    // console.log(moment(d)._d);
     d = Number(d);
     var h = Math.floor(d / 3600);
     var m = Math.floor(d % 3600 / 60);
@@ -79,6 +82,10 @@ class IndividualListItem extends Component{
     // var mDisplay = m > 0 ? m+':' : '00';
     // var sDisplay = s > 0 ? s: "";
     return h+':' + m+':' + s; 
+    // <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+    //   <Text style={{color:'#fff'}}>{this.props.loading?'00:00':moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH')==='00'?moment(this.props.playBackStatus.positionMillis).format('mm:ss'):moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH:mm:ss')}</Text>
+    //   <Text style={{color:'#fff'}}>{this.props.loading?'00:00':moment(this.props.playBackStatus.durationMillis).subtract(16,'hours').format('HH')==='00'?moment(this.props.playBackStatus.durationMillis).format('mm:ss'):moment(this.props.playBackStatus.durationMillis).subtract(16,"hours").format('HH:mm:ss')}</Text>
+    // </View>
   }
   render(){
     return(
