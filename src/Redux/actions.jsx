@@ -7,7 +7,6 @@ import { SELECTED_SURAH_ID,
   SURAH_CHANGE, 
   SELECT_LANGUAGE} from './actionType';
 import {server} from '../server';
-//import axios from 'axios';
 
 export const StartLoader = (type) => ({
     type: type,
@@ -33,7 +32,6 @@ export const GetData = (api, actionType) => async dispatch  => {
       });
     });
 }
-
 export const SelectedSurahId = (item, isPlaying, isPlaySurah, currentIndex) => ({
   type: SELECTED_SURAH_ID,
   payload: {item, isPlaying, isPlaySurah, currentIndex}

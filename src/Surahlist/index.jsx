@@ -7,7 +7,6 @@ import {SURAH_LIST, SURAH_LIST_LOADER} from '../Redux/actionType';
 import {connect} from 'react-redux';
 import {GetData, StartLoader, SelectedSurahId, ResetData} from '../Redux/actions';
 import {Loader} from '../loader';
-//import moment from 'moment';
  
 class SurahList extends Component {
   constructor(props){

@@ -25,11 +25,10 @@ class Header extends Component {
                   <i className="fa fa-angle-down"></i>
                 </button>
                 {this.state.isLanguageDisplay && <div className="dropdown-menu dropdown-menu-right">
-                  {this.props.languageList.map((item,index)=><SingleButton key={index} item={item} onSelectLanguage={this.props.SelectedLanguage}/>)}
-                </div> }
-                
+                    {this.props.languageList.map((item,index)=><SingleButton key={index} item={item} onSelectLanguage={this.props.SelectedLanguage}/>)}
+                  </div> 
+                }
               </div>
-                {/* <span className="header_lang"><div className="dropdown"><a aria-haspopup="true" href="/#" className="dropdown-toggle nav-link" aria-expanded="false" style={{textDecoration : 'none', fontSize : '14px', color: 'rgb(116, 116, 116)'}}>Sprachen <i className="fa fa-angle-down"></i></a><div tabIndex="-1" role="menu" aria-hidden="true" className="dropdown-menu dropdown-menu-right"><button type="button" tabIndex="0" role="menuitem" className="stripe Selected dropdown-item">Deutsch</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Türkçe</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">عربى</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">English</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Bosanski</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Gjuhë Shqipe</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">اردو </button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">فارسی </button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Русский</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">български</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Français</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Nederlands</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Italiano</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Español</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Português</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Dansk</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Svenska</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Norsk</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Suomi</button><button type="button" tabIndex="0" role="menuitem" className="stripe dropdown-item">Bahasa Indonesia</button></div></div></span> */}
             </div>
           </div>
         </div>
@@ -45,7 +44,6 @@ export default connect(mapStateToProps, {SelectedLanguage})(Header);
 
 class SingleButton extends Component{
   render(){
-    console.log(this.props.item);
     return(
       <button onClick={()=>this.props.onSelectLanguage(this.props.item)} type="button" tabIndex="0" role="menuitem" className="stripe Selected dropdown-item">{this.props.item}</button>
     )

@@ -565,6 +565,9 @@ header .dropdown-menu .dropdown-item:focus {
 .ap-controls:hover svg {
   fill: #222;
 }
+.ap-controls.focusclass svg {
+  fill: #2d5fa6;
+}
 
 .ap-controls:active {
   background: rgba(0, 0, 0, 0.1);
@@ -1273,3 +1276,12 @@ a.sidelogo {
     width: 100% !important;
     height: 50px !important;
   }
+  .css-gx4dyx-Slider{
+    width: 100% !important;
+  }
+  button.ap-controls.disabled {
+    cursor: not-allowed;
+}
+button.ap-controls.disabled:hover svg {
+  fill: #ccc;
+}
