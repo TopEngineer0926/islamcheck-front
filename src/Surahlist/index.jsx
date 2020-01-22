@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import {SURAH_LIST, SURAH_LIST_LOADER} from '../Redux/actionType';
 import {connect} from 'react-redux';
-import {GetData, StartLoader, SelectedSurahId, ResetData} from '../Redux/actions';
+import {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay} from '../Redux/actions';
 import {Loader} from '../loader';
-//import moment from 'moment';
+import moment from 'moment';
  
 class SurahList extends Component {
   constructor(props){
@@ -29,6 +29,9 @@ class SurahList extends Component {
     this.props.ResetData();
     this.props.SelectedSurahId(item, true, true, index);
   }
+  shuffleSurah = () => {
+    this.setState({isShuffleSurah : !this.state.isShuffleSurah},()=>{if(!this.state.isShuffleSurah) return; console.log('******** Shuffle *******'+this.state.isShuffleSurah); this.props.ResetData(); this.props.ShufflePlay()})
+  }
   render(){  
     return (
       <div>
@@ -37,7 +40,7 @@ class SurahList extends Component {
           <div className="body_content mb-0">
             <div className="checkdetailheader text-center">
               <h1>{this.props.qariDetail.name}</h1>
-              <button><FontAwesomeIcon icon={Icons.faPlay}/> Shuffle Play</button>
+             <button onClick={this.shuffleSurah}><FontAwesomeIcon icon={this.state.isShuffleSurah ? Icons.faStop : Icons.faPlay}/>Shuffle Play</button>
             </div>
             <section className="islamcheck_detail">
               <div className="container">
@@ -59,33 +62,15 @@ const mapStateToProps = state => ({
   isSurahListLoaded : state.qariAndSurah.isSurahListLoaded,
   surahID : state.qariAndSurah.surahID,
   progressValue : state.qariAndSurah.progressValue,
-  audioDuration : state.qariAndSurah.audioDuration
+  audioDuration : state.qariAndSurah.audioDuration,
+  isPlaySurah : state.qariAndSurah.isPlaySurah
 });
-export default connect(mapStateToProps, {GetData, StartLoader, SelectedSurahId, ResetData})(SurahList);
+export default connect(mapStateToProps, {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay})(SurahList);
 
 class IndividualListItem extends Component{
    secondsToHms =(d)=> {
-    // moment((d)._d).format('HH')==='00'?moment(this.props.playBackStatus.positionMillis).format('mm:ss'):moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH:mm:ss')
-    // console.log(moment(d)._d);
-    d = Number(d);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
-    // console.log(moment().hours(this.props.item.duration));
-    // console.log(moment().minutes(this.props.item.durationmber));
-    // console.log(moment().seconds(this.props.item.duration));
-    // console.log(h);
-    // console.log(m);
-    // console.log(s);
-
-    // var hDisplay = h > 0 ? h+':' : '';
-    // var mDisplay = m > 0 ? m+':' : '00';
-    // var sDisplay = s > 0 ? s: "";
-    return h+':' + m+':' + s; 
-    // <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-    //   <Text style={{color:'#fff'}}>{this.props.loading?'00:00':moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH')==='00'?moment(this.props.playBackStatus.positionMillis).format('mm:ss'):moment(this.props.playBackStatus.positionMillis).subtract(16,'hours').format('HH:mm:ss')}</Text>
-    //   <Text style={{color:'#fff'}}>{this.props.loading?'00:00':moment(this.props.playBackStatus.durationMillis).subtract(16,'hours').format('HH')==='00'?moment(this.props.playBackStatus.durationMillis).format('mm:ss'):moment(this.props.playBackStatus.durationMillis).subtract(16,"hours").format('HH:mm:ss')}</Text>
-    // </View>
+    const time = moment.utc(Math.round(d)*1000).format('HH') === '00' ? moment.utc(Math.round(d)*1000).format('mm:ss') : moment.utc(Math.round(d)*1000).format('HH:mm:ss');
+    return time; 
   }
   render(){
     return(
@@ -109,11 +94,10 @@ class IndividualListItem extends Component{
               </div>
             </div>
           </div>
-          {/* {moment(date).format('MMM DD, h:mm a')}  */}
-          <ReadAndDownloadButton/>
+          <ReadAndDownloadButton filePath={this.props.item.file_name} index={this.props.index + 1} />
           <div className="text-right col-md-2 col-xs-4">
             <h6 className="">
-              <FontAwesomeIcon icon={Icons.faClock} aria-hidden="true"/> {this.props.surahID === this.props.item.id ? `${this.props.progressValue} / ${this.props.audioDuration}` :  this.secondsToHms(this.props.item.duration)}
+              <FontAwesomeIcon icon={Icons.faClock} aria-hidden="true"/> {this.props.surahID === this.props.item.id ? `${moment.utc(Math.round(this.props.progressValue)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.progressValue)*1000).format('mm:ss') : moment.utc(Math.round(this.props.progressValue)*1000).format('HH:mm:ss')} / ${moment.utc(Math.round(this.props.audioDuration)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.audioDuration)*1000).format('mm:ss') : moment.utc(Math.round(this.props.audioDuration)*1000).format('HH:mm:ss')}` :  this.secondsToHms(this.props.item.duration)}
             </h6>
           </div>
         </div>
@@ -129,8 +113,8 @@ class ReadAndDownloadButton extends Component{
       <div className="text-right col-md-6 hidden-xs">
         <div className="overtext">
           <Link to="/" className=""><FontAwesomeIcon icon={Icons.faUser}/><span> Other Qaris</span></Link>
-          <a href="/#" className="" target="_blank"><FontAwesomeIcon icon={Icons.faBook}/><span>Read</span></a>
-          <a href="/#" className="" target="_blank"><FontAwesomeIcon icon={Icons.faArrowCircleDown}/><span> Download</span></a>
+          <a href={'http://18.189.100.203/#/'+this.props.index} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faBook}/><span>Read</span></a>
+          <a href={'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'+this.props.filePath} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faArrowCircleDown}/><span> Download</span></a>
         </div>
       </div>
     )

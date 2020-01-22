@@ -15,3 +15,4 @@ export const START_OR_STOP = 'START_OR_STOP';
 export const SURAH_COMPLETED = 'SURAH_COMPLETED';
 export const SURAH_CHANGE = 'SURAH_CHANGE';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
+export const SHUFFLE_PLAY = 'SHUFFLE_PLAY';

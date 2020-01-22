@@ -4,15 +4,14 @@ import ReactPlayer from 'react-player';
 import {connect} from 'react-redux';
 import {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData} from '../Redux/actions';
 import Slider from 'react-input-slider';
+import moment from 'moment';
+
 class PlayerDesign extends Component{
   constructor(props){
     super(props);
     this.state = {
       volume : 0.5,
       isSurahrepeated : false,
-      seekValue : 0,
-      pip : false,
-
     }
   }
   onEndAudio = () => {
@@ -52,11 +51,11 @@ class PlayerDesign extends Component{
               </div>
               <div className="ap-item ap--track">
                 <div className="ap-info">
-                  <div className="ap-title">{this.props.specificSurah.name}</div>
+                  <div className="ap-title">{`${this.props.qariDetail.name} ( ${this.props.specificSurah.name} )`}</div>
                   <div className="ap-time">
-                    <span className="ap-time--current">{this.props.progressValue}</span>
+                    <span className="ap-time--current">{moment.utc(Math.round(this.props.progressValue)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.progressValue)*1000).format('mm:ss') : moment.utc(Math.round(this.props.progressValue)*1000).format('HH:mm:ss')}</span>
                     <span> / </span>
-                    <span className="ap-time--duration">{this.props.audioDuration}</span>
+                    <span className="ap-time--duration">{moment.utc(Math.round(this.props.audioDuration)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.audioDuration)*1000).format('mm:ss') : moment.utc(Math.round(this.props.audioDuration)*1000).format('HH:mm:ss')}</span>
                   </div>
                   <div className="ap-progress-container" >
                   <Slider
@@ -112,7 +111,8 @@ const mapStateToProps = state => ({
   audioDuration : state.qariAndSurah.audioDuration,
   percentageValue : state.qariAndSurah.percentageValue,
   surahID : state.qariAndSurah.surahID,
-  isPlaying : state.qariAndSurah.isPlaying
+  isPlaying : state.qariAndSurah.isPlaying,
+  qariDetail : state.qariAndSurah.qariDetail,
 });
 export default connect(mapStateToProps, {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData})(PlayerDesign);
 

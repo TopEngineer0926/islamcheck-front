@@ -5,7 +5,8 @@ import { SELECTED_SURAH_ID,
   START_OR_STOP, 
   SURAH_COMPLETED, 
   SURAH_CHANGE, 
-  SELECT_LANGUAGE} from './actionType';
+  SELECT_LANGUAGE,
+  SHUFFLE_PLAY} from './actionType';
 import {server} from '../server';
 
 export const StartLoader = (type) => ({
@@ -63,4 +64,8 @@ export const ChangeSurah = (title) => ({
 export const SelectedLanguage = (name) => ({
   type: SELECT_LANGUAGE,
   payload: name
+});
+export const ShufflePlay = () => ({
+  type: SHUFFLE_PLAY,
+  payload: true
 });

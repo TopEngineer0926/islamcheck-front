@@ -13,7 +13,8 @@ import { TAB_SECTIONS,
   START_OR_STOP,
   SURAH_COMPLETED,
   SURAH_CHANGE,
-  SELECT_LANGUAGE
+  SELECT_LANGUAGE,
+  SHUFFLE_PLAY
 } from './actionType';
 
 const initialState = {
@@ -207,6 +208,15 @@ export default function(state = initialState, action) {
         ...state,
         currentIndex : action.payload === 'previous' ? state.currentIndex - 1 : state.currentIndex + 1,
         surahID : action.payload === 'previous' ? state.surahID - 2 : state.surahID + 2,
+      };
+    case SHUFFLE_PLAY:
+      const randomIndex = Math.floor(Math.random() * 113);
+      return{
+        ...state,
+        isPlaySurah : action.payload === true && state.isPlaySurah === false ? true : state.isPlaySurah,
+        isPlaying : action.payload === true && state.isPlaying === false ? true : state.isPlaying,
+        currentIndex : action.payload === true ? randomIndex : state.currentIndex,
+        surahID : action.payload === true ? (randomIndex * 2) + 1 : state.surahID,
       };
     default:
       return state;
