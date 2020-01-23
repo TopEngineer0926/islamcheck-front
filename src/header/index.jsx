@@ -3,18 +3,21 @@ import React, {Component} from 'react';
 import logo from '../assets/images/logo.svg';
 import {connect} from 'react-redux';
 import {SelectedLanguage} from '../Redux/actions';
+import SideBar from './sidebar';
  
 class Header extends Component {
   state = {
-    isLanguageDisplay : false
+    isLanguageDisplay : false,
+    isOPenSideBar : false
   }
   render(){    
     return (
       <header className="">
-        <div className="container-fluid">
+        {this.state.isOPenSideBar && <SideBar/>}
+        <div className="container-fluid" onClick={()=>this.setState({isOPenSideBar : !this.state.isOPenSideBar})}>
           <div className="menubar">
             <div className="logosection">
-              <a href="/#" id="sideNavToggler" className="hamerburg navbartoggler triggerSidebar">
+              <a href="/#" id="sideNavToggler" className="hamerburg navbartoggler triggerSidebar" onClick={()=>this.setState({isOPenSideBar : !this.state.isOPenSideBar})}>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.51 13.34"><defs></defs><title>Forma 1</title><path id="Forma_1" data-name="Forma 1" className="cls-1" d="M9.45,13.34a.84.84,0,0,1-.86-.81.82.82,0,0,1,.8-.86H26.64a.82.82,0,0,1,.86.8.84.84,0,0,1-.8.87H9.45ZM.86,7.5A.83.83,0,0,1,.8,5.84H26.64A.83.83,0,0,1,26.7,7.5H.86Zm0-5.83A.84.84,0,1,1,.86,0H26.64a.83.83,0,0,1,.83.83.83.83,0,0,1-.83.84H.86Z" transform="translate(0 0)"></path></svg>
               </a>
               <a href="/#"><img src={logo} alt="logo"/></a>

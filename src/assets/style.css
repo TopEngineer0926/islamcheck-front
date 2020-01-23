@@ -1081,7 +1081,7 @@ a.sidelogo {
   background: #fff;
   border-right: 1px solid #ccc;
   position: fixed;
-  left: -300px;
+  
   height: 100%;
   -webkit-transition: .3s;
   transition: .3s;

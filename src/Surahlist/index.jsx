@@ -40,7 +40,7 @@ class SurahList extends Component {
           <div className="body_content mb-0">
             <div className="checkdetailheader text-center">
               <h1>{this.props.qariDetail.name}</h1>
-             <button onClick={this.shuffleSurah}><FontAwesomeIcon icon={this.state.isShuffleSurah ? Icons.faStop : Icons.faPlay}/>Shuffle Play</button>
+              <button onClick={this.shuffleSurah}>{this.state.isShuffleSurah ? <FontAwesomeIcon className="fa" icon={Icons.faStop}/> : <FontAwesomeIcon className="fa" icon={Icons.faPlay}/>}Shuffle Play</button>
             </div>
             <section className="islamcheck_detail">
               <div className="container">
