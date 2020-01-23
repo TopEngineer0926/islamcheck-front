@@ -307,14 +307,18 @@ header .dropdown-menu .dropdown-item:focus {
   outline: none;
 }
 
-.checkdetailheader button:hover {
+.checkdetailheader button:hover, .checkdetailheader.activebtn button {
   background-color: #32a6bc;
   color: #fff;
+}
+.checkdetailheader.activebtn button:hover {
+  background-color: #fff;
+  color: #32a6bc;
 }
 
 .islamcheck_detail ul {
   -webkit-box-shadow: 0px 0px 10px #eeeeee;
-          box-shadow: 0px 0px 10px #eeeeee;
+  box-shadow: 0px 0px 10px #eeeeee;
   margin-top: 60px;
 }
 
@@ -1015,8 +1019,8 @@ footer .container .footer-text {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 35px;
 }
 
@@ -1081,7 +1085,7 @@ a.sidelogo {
   background: #fff;
   border-right: 1px solid #ccc;
   position: fixed;
-  
+  /* left: -300px; */
   height: 100%;
   -webkit-transition: .3s;
   transition: .3s;
@@ -1284,4 +1288,140 @@ a.sidelogo {
 }
 button.ap-controls.disabled:hover svg {
   fill: #ccc;
+}
+.checkdetailheader svg {
+  margin-right: 10px;
+}
+
+/*** Burger Menu ***/
+
+/* Individual item */
+
+/* Change color on hover */
+/* The rest copied directly from react-burger-menu docs */
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 30px;
+  top: 25px;
+  border: 2px solid #56c0d0;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #56c0d0;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+/* .bm-cross {
+  background: #000000;
+} */
+
+/* General sidebar styles */
+.bm-menu {
+  background: #ffffff;
+  padding: "16px";
+  font-size: 16px;
+}
+
+/* Morph shape necessary with bubble or elastic */
+/* .bm-morph-shape {
+  fill: #373a47;
+} */
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #ffffff;
+}
+
+.noLine{
+text-decoration: none !important;
+}
+.bm-item {
+  padding: 8px 8px 8px 15px;
+  font-size: 16px;
+  color: #747474;
+  display: block;
+  text-decoration: none !important;
+  outline: none;
+}
+.Banner:hover {
+  background: #56c0d0;
+  color: #fff;
+  transition-duration: all .8s;
+}
+
+/* .Banner:hover {
+  background: #56c0d0;
+  color: white;
+  transition-duration: all 800ms;
+} */
+
+/* Styling of overlay */
+
+.cassette__control_bar {
+  position: fixed;
+  bottom: 0;
+  z-index: 9999999;
+  width: 100%;
+}
+
+/* .cursor-pointer {
+  cursor: pointer;
+} */
+
+/* .highlight-word-on-play {
+  color: #56c0d0 !important;
+  border-bottom: 1px solid #56c0d0 !important;
+} */
+
+.playing-verse-container {
+  background: #56c0d012;
+}
+
+.playing-verse-container .ayatrefbox {
+  background: transparent !important;
+}
+
+span.bm-burger-bars {
+  width: 20px !important;
+  left: 8px !important;
+  height: 3px !important;
+  border-radius: 5px;
+}
+span.bm-burger-bars:nth-child(1) {
+  top: 10px !important;
+}
+span.bm-burger-bars:nth-child(2) {
+  top: 16px !important;
+}     
+span.bm-burger-bars:nth-child(3) {
+  top: 23px !important;
+}
+.bm-burger-button {
+  width: 40px !important;
+  height: 38px !important;
+  top: 15px !important;
+  border: 1px solid #56c0d0;
+  border-radius: 5px;
+  left: 15px !important;
+}
+.logosection {
+  padding-left: 50px;
+}
+
+.bm-menu-wrap, .bm-overlay{
+  top: 0;
+}
+a.bm-item.Banner svg{
+  margin-right: 15px;
 }

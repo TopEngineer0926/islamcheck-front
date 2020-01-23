@@ -48,7 +48,8 @@ class LanguageDiv extends Component{
     return(
       <div className="col-sm-3 col-md-3">
         <ul className="footerstyle">
-         {this.props.list.map((item,index)=><li key={index+item} style={{cursor: 'pointer'}}><a className="small" href="/#">{item}</a></li>)}
+          {this.props.list.map((item,index)=><li key={index+item} style={{cursor: 'pointer'}}>
+            <a className="small" href="/#">{item}</a></li>)}
         </ul>
       </div>
     )

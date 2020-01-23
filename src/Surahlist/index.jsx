@@ -15,6 +15,7 @@ class SurahList extends Component {
     this.state = {
       isPlaySurah : false,
       isPlayingSurah : false,
+      isShuffleSurah : false,
       audioFile : '',
       specificSurah : '',
       currentIndex : ''
@@ -38,9 +39,9 @@ class SurahList extends Component {
         {this.props.isSurahListLoaded && <Loader/>}
         {!this.props.isSurahListLoaded && 
           <div className="body_content mb-0">
-            <div className="checkdetailheader text-center">
+            <div className={!this.state.isShuffleSurah ? "checkdetailheader text-center" : "checkdetailheader text-center activebtn"}>
               <h1>{this.props.qariDetail.name}</h1>
-              <button onClick={this.shuffleSurah}>{this.state.isShuffleSurah ? <FontAwesomeIcon className="fa" icon={Icons.faStop}/> : <FontAwesomeIcon className="fa" icon={Icons.faPlay}/>}Shuffle Play</button>
+              <button onClick={this.shuffleSurah}>{this.state.isShuffleSurah ? <FontAwesomeIcon icon={Icons.faStop}/> : <FontAwesomeIcon icon={Icons.faPlay}/>}Shuffle Play</button>
             </div>
             <section className="islamcheck_detail">
               <div className="container">
