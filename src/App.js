@@ -12,6 +12,8 @@ class App extends React.Component {
     return (
       <div>
         <Header/>
+          <h1>Test deployment</h1>
+          <h2>test on live</h2>
           <Router>
             <Route exact path="/" component={BismillahComp}/>
             <Route path="/surah-list/:id" children={<Child/>}/>
