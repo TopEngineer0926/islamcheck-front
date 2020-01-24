@@ -7,7 +7,7 @@ import { SELECTED_SURAH_ID,
   SURAH_CHANGE, 
   SELECT_LANGUAGE,
   SHUFFLE_PLAY} from './actionType';
-import {server} from '../server';
+import {server} from './server';
 
 export const StartLoader = (type) => ({
     type: type,

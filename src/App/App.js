@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, useParams} from 'react-router-dom';
-import Header from './header';
-import Footer from './footer';
-import BismillahComp from './QariList/Bismillah';
-import SurahList from './Surahlist';
+import Header from '../header';
+import Footer from '../footer';
+import BismillahComp from '../QariList/Bismillah';
+import SurahList from '../Surahlist';
 import {connect} from 'react-redux';
-import PlayerDesign from './Surahlist/playerDesign';
+import PlayerDesign from '../Surahlist/playerDesign';
 import { history } from './history';
 
 class App extends React.Component {

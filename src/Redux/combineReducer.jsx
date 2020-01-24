@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import qariAndSurah from './Redux/reducer';
+import qariAndSurah from './reducer';
 
 export default combineReducers({qariAndSurah});
