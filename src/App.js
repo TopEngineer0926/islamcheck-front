@@ -6,13 +6,14 @@ import BismillahComp from './QariList/Bismillah';
 import SurahList from './Surahlist';
 import {connect} from 'react-redux';
 import PlayerDesign from './Surahlist/playerDesign';
+import { history } from './history';
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <Header/>
-          <Router>
+          <Router history={history} basename={ process.env.PUBLIC_URL }>
             <Route exact path="/" component={BismillahComp}/>
             <Route path="/surah-list/:id" children={<Child/>}/>
           </Router>
