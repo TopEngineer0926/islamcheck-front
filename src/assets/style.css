@@ -1510,3 +1510,8 @@ span.bm-burger-bars:nth-child(3) {
 a.bm-item.Banner svg {
     margin-right: 15px;
 }
+
+.footerstyle a {
+    text-decoration: none;
+    color: #fff;
+}
