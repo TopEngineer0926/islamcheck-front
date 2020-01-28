@@ -1471,10 +1471,10 @@ button.ap-controls.disabled:hover svg {
 }
 
 span.bm-burger-bars {
-    width: 20px !important;
-    left: 8px !important;
-    height: 3px !important;
-    border-radius: 5px;
+    width: 32px !important;
+    left: 0px !important;
+    height: 2px !important;
+    border-radius: 0;
 }
 
 span.bm-burger-bars:nth-child(1) {
@@ -1482,11 +1482,12 @@ span.bm-burger-bars:nth-child(1) {
 }
 
 span.bm-burger-bars:nth-child(2) {
-    top: 16px !important;
+    top: 17px !important;
 }
 
 span.bm-burger-bars:nth-child(3) {
-    top: 23px !important;
+    top: 24px !important;
+    width: 12px !important;
 }
 
 .bm-burger-button {
@@ -1511,7 +1512,33 @@ a.bm-item.Banner svg {
     margin-right: 15px;
 }
 
+
+/* add css by naeem */
+
 .footerstyle a {
     text-decoration: none;
     color: #fff;
 }
+
+.bm-burger-button {
+    border: none;
+}
+
+.bm-burger-button button:focus {
+    outline: none;
+}
+
+svg.svg-inline--fa.fa-clock {
+    color: #646464;
+}
+
+.islamcheck_detail .list-group-item {
+    border-radius: 0;
+}
+
+.svg-inline--fa.fa-w-14 {
+    width: 0.77em;
+}
+
+
+/* add css by naeem ********end*/
