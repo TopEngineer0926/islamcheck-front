@@ -114,7 +114,7 @@ class ReadAndDownloadButton extends Component{
       <div className="text-right col-md-6 hidden-xs">
         <div className="overtext">
           <Link to="/" className=""><FontAwesomeIcon icon={Icons.faUser}/><span> Other Qaris</span></Link>
-          <a href={'http://18.189.100.203/#/'+this.props.index} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faBook}/><span>Read</span></a>
+          <a href={'http://18.189.100.203/#/'+this.props.index} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faBook}/> <span>Read</span></a>
           <a href={'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'+this.props.filePath} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faArrowCircleDown}/><span> Download</span></a>
         </div>
       </div>

@@ -19,7 +19,7 @@ export const GetData = (api, actionType) => async dispatch  => {
   };
   fetch(server+api,requestOptions).then(response => response.json())
     .then(res=>{
-      //console.log(res);
+      console.log(res);
       dispatch({
         type: actionType,
         payload: res

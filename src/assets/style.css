@@ -267,8 +267,8 @@ header .dropdown-menu .dropdown-item:focus {
   top: 18px;
   vertical-align: middle;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .project-tab .nav-link:hover {
@@ -1023,6 +1023,15 @@ footer .container .footer-text {
   justify-content: center;
   margin-top: 35px;
 }
+.small, small {
+  font-size: 80%;
+  font-weight: 400;
+}
+small a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+}
+
 
 .dropdown-menu-right .dropdown-item {
   color: #5bc0d2;
@@ -1177,15 +1186,27 @@ a.sidelogo {
 .react-tabs__tab {
   border: none !important;
   padding: 10px 12px !important;
+  color: #545454;
+  font-size: 14px;
+  font-weight: 600;
+}
+.react-tabs__tab-list:after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  border-top: solid 1px #ccc;
+  bottom: -8px;
+  z-index: -1;
 }
 .react-tabs__tab--selected {
   border-bottom: solid 2px #32a6bc !important;
   color:  #32a6bc !important;
 
 }
-/* .react-tabs__tab-list{
+.react-tabs__tab-list{
   border: none !important;
-} */
+}
 /* .react-tabs__tab-list:after {
   content: "";
   border-top: 1px solid rgba(0,0,0,.1);

@@ -13,9 +13,9 @@ class QariLIst extends Component {
     }
     this.props.StartLoader(QARI_LIST_LOADER);
   }
-  componentDidMount(){
-    this.props.GetData(`qaris/${this.props.id}`, QARI_LIST);
-  }
+  // componentDidMount(){
+  //   this.props.GetData(`qaris/${this.props.id}`, QARI_LIST);
+  // }
   // checkLength = () => {
   //   let count = 0;
   //    for(let i = 0; i< this.props.qariList.length; i++){
@@ -29,20 +29,21 @@ class QariLIst extends Component {
     //this.props.qariList.length > 0 && this.checkLength();  
     return (
       <div className="body_content">
-        {this.props.isQariListLoaded && <Loader/>}
-        {!this.props.isQariListLoaded && 
+        {/* {this.props.isQariListLoaded && <Loader/>}
+        {!this.props.isQariListLoaded &&  */}
           <section id="tabs" className="project-tab">
             <div className="container">
               <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  {
+                  {/* {
                     this.props.qariList.sort((a, b) => a.letter.localeCompare(b.letter)).map((item, i) => <SpecificLetterNames key={item.id} item={item}/>)
-                  }
+                  } */}
+                  <SpecificLetterNames item={{letter : 'A', names : [{id : 1, name : 'Ammar'}, {id : 2, name : 'Abdullah'}]}}/>
                 </div>
               </div>
             </div>
           </section>
-        }
+        {/* } */}
       </div>
     );
   }

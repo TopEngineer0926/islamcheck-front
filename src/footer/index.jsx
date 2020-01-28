@@ -9,8 +9,8 @@ class Footer extends Component {
     let i = 0;
     let footerArray = [];
     while(i < this.props.languageList.length){
-      footerArray.push(<LanguageDiv key={i} list={this.props.languageList.slice(i, i+4)}/>);
-      i = i + 4;
+      footerArray.push(<LanguageDiv key={i} list={this.props.languageList.slice(i, i+5)}/>);
+      i = i + 5;
     }
     return footerArray;
   }
