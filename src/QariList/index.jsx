@@ -16,17 +16,7 @@ class QariLIst extends Component {
   componentDidMount(){
     this.props.GetData(`qaris/${this.props.id}`, QARI_LIST);
   }
-  // checkLength = () => {
-  //   let count = 0;
-  //    for(let i = 0; i< this.props.qariList.length; i++){
-  //      count += this.props.qariList[i].names.length;
-  //    }
-  //    console.log('+++++++++++++++++++++');
-  //    console.log(count);
-  //    console.log('++++++++++++++++++++++++++');
-  // }
   render(){
-    //this.props.qariList.length > 0 && this.checkLength();  
     return (
       <div className="body_content">
         {this.props.isQariListLoaded && <Loader/>}

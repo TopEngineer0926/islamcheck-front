@@ -15,8 +15,11 @@ export const StartLoader = (type) => ({
 });
 export const GetData = (api, actionType) => async dispatch  => {
   const requestOptions = {
-    method: 'GET' 
+    method: 'GET',
   };
+  // console.log('********* Server Api **********');
+  // console.log(server+api);
+  // console.log('******************');
   fetch(server+api,requestOptions).then(response => response.json())
     .then(res=>{
       console.log(res);

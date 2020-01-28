@@ -24,10 +24,9 @@ class Header extends Component {
             </div>
             <div className="right_dropdown">
               <div className="btn-group">
-                <button onClick={()=>this.setState({isLanguageDisplay : !this.state.isLanguageDisplay})} type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.languageSelected} 
-                  <i className="fa fa-angle-down"></i>
-                </button>
-                {this.state.isLanguageDisplay && <div className="dropdown-menu dropdown-menu-right">
+                <button onClick={()=>this.setState({isLanguageDisplay : !this.state.isLanguageDisplay})} type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.languageSelected}</button>
+                {this.state.isLanguageDisplay && 
+                  <div className="dropdown-menu dropdown-menu-right">
                     {this.props.languageList.map((item,index)=><SingleButton key={index} item={item} onSelectLanguage={this.props.SelectedLanguage} onLanguageSelected={this.onLanguageSelected}/>)}
                   </div> 
                 }

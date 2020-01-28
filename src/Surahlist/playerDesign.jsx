@@ -41,10 +41,17 @@ class PlayerDesign extends Component{
                 <button disabled={this.props.surahID === 1 ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('previous')}} className={this.props.surahID === 1 ? "ap-controls ap-prev-btn disabled" : "ap-controls ap-prev-btn" }>
                   <EachSvgComponent id="Capa_1" data_name="Capa 1" title='previous' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.3 16.52" d1="M132.62,104l8.11-5.75v16.52l-8.11-5.75v5.75l-9.42-6.68v6.68h-3.77V98.29h3.77V105l9.42-6.68Z" transform="translate(-119.43 -98.29)"/>
                 </button>
-                <button className="ap-controls ap-toggle-btn" onClick={()=>this.props.StartAndStartAudio(!this.props.isPlaying)}>
-                  {!this.props.isPlaying && <EachSvgComponent id="Capa_1" data_name="Capa 1" title='play' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.9 62.37" d1="M207.85,157.28l-67.47-28.06a5.53,5.53,0,0,0-4.19,0,3.08,3.08,0,0,0-2.09,2.69v56.14a3.08,3.08,0,0,0,2.09,2.69,5.5,5.5,0,0,0,4.19,0l67.47-28.07a2.8,2.8,0,0,0,0-5.44Z" transform="translate(-134.1 -128.82)"/>}
-                  {this.props.isPlaying &&<EachSvgComponent id="Capa_1" data_name="Capa 1" title='pause-two-lines' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.5 45.06" d1="M81.83,84.78A2.18,2.18,0,0,0,84,82.61V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z" transform="translate(-40.5 -39.72)" d2="M55.7,84.78a2.18,2.18,0,0,0,2.17-2.17V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z"/>}
-                </button>
+                {!this.props.isSurahLoaded && 
+                  <div className="wraper_laader">
+                    <div className="loader loadersmall"></div>
+                  </div>
+                }
+                {this.props.isSurahLoaded &&
+                  <button className="ap-controls ap-toggle-btn" onClick={()=>this.props.StartAndStartAudio(!this.props.isPlaying)}>
+                    {!this.props.isPlaying && <EachSvgComponent id="Capa_1" data_name="Capa 1" title='play' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.9 62.37" d1="M207.85,157.28l-67.47-28.06a5.53,5.53,0,0,0-4.19,0,3.08,3.08,0,0,0-2.09,2.69v56.14a3.08,3.08,0,0,0,2.09,2.69,5.5,5.5,0,0,0,4.19,0l67.47-28.07a2.8,2.8,0,0,0,0-5.44Z" transform="translate(-134.1 -128.82)"/>}
+                    {this.props.isPlaying &&<EachSvgComponent id="Capa_1" data_name="Capa 1" title='pause-two-lines' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.5 45.06" d1="M81.83,84.78A2.18,2.18,0,0,0,84,82.61V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z" transform="translate(-40.5 -39.72)" d2="M55.7,84.78a2.18,2.18,0,0,0,2.17-2.17V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z"/>}
+                  </button>
+                }
                 <button disabled={this.props.surahID === 227 ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('next')}} className={this.props.surahID === 227 ? "ap-controls ap-next-btn disabled" :"ap-controls ap-next-btn"}>
                   <EachSvgComponent id="Capa_1" data_name="Capa 1" title='previous' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.31 16.54" d1="M127.54,109.06l-8.11,5.76V98.3l8.12,5.74V98.29L137,105V98.28h3.77V114.8H137v-6.67l-9.42,6.68Z" transform="translate(-119.42 -98.28)"/>
                 </button>
@@ -113,6 +120,7 @@ const mapStateToProps = state => ({
   surahID : state.qariAndSurah.surahID,
   isPlaying : state.qariAndSurah.isPlaying,
   qariDetail : state.qariAndSurah.qariDetail,
+  isSurahLoaded : state.qariAndSurah.isSurahLoaded
 });
 export default connect(mapStateToProps, {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData})(PlayerDesign);
 

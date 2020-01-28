@@ -14,32 +14,33 @@ import { TAB_SECTIONS,
   SURAH_COMPLETED,
   SURAH_CHANGE,
   SELECT_LANGUAGE,
-  SHUFFLE_PLAY
+  SHUFFLE_PLAY,
 } from './actionType';
 
 const initialState = {
-    sections : [],
-    qariList : [],
-    isQariListLoaded : false,
-    isLoaderStart : false,
-    alphabeticalOrderList : [],
-    isSurahListLoaded : false,
-    surahList : [],
-    qariDetail : {},
-    audioPath : '',
-    haramainTaraweehList : [],
-    isHaramainTaraweehLoaded : false,
-    alphabeticalOrderListOfTaraweeh : [],
-    surahID : '',
-    audioFile : '',
-    currentIndex : 0,
-    isPlaySurah : false,
-    isPlaying : false,
-    progressValue : 0,
-    audioDuration : '',
-    percentageValue : 0,
-    languageSelected : 'English',
-    languageList : ['English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano']
+  sections : [],
+  qariList : [],
+  isQariListLoaded : false,
+  isLoaderStart : false,
+  alphabeticalOrderList : [],
+  isSurahListLoaded : false,
+  surahList : [],
+  qariDetail : {},
+  audioPath : '',
+  haramainTaraweehList : [],
+  isHaramainTaraweehLoaded : false,
+  alphabeticalOrderListOfTaraweeh : [],
+  surahID : '',
+  audioFile : '',
+  currentIndex : 0,
+  isPlaySurah : false,
+  isPlaying : false,
+  progressValue : 0,
+  audioDuration : '',
+  percentageValue : 0,
+  isSurahLoaded : false,
+  languageSelected : 'English',
+  languageList : ['English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano']
 };
 
 export default function(state = initialState, action) {
@@ -177,7 +178,8 @@ export default function(state = initialState, action) {
       return{
         ...state,
         audioDuration : action.payload.value,
-        percentageValue : action.payload.percentageValue
+        percentageValue : action.payload.percentageValue,
+        isSurahLoaded : true
       };
     case PROGRESS_BAR_VALUE:
       return{
@@ -190,7 +192,7 @@ export default function(state = initialState, action) {
         progressValue : action.payload === true ? 0 : state.progressValue,
         audioDuration : action.payload === true ? '' : state.audioDuration,
         percentageValue : action.payload === true ? 0 : state.percentageValue,
-        //isPlaySurah : action.payload === true ? false : true
+        isSurahLoaded : action.payload === true ? false : true
       };
     case START_OR_STOP:
       return{

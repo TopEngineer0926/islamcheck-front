@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import '../assets/style.css';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as Icons from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import * as Icons from "@fortawesome/free-solid-svg-icons";
 import {SURAH_LIST, SURAH_LIST_LOADER} from '../Redux/actionType';
 import {connect} from 'react-redux';
 import {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay} from '../Redux/actions';
@@ -31,7 +31,7 @@ class SurahList extends Component {
     this.props.SelectedSurahId(item, true, true, index);
   }
   shuffleSurah = () => {
-    this.setState({isShuffleSurah : !this.state.isShuffleSurah},()=>{if(!this.state.isShuffleSurah) return; console.log('******** Shuffle *******'+this.state.isShuffleSurah); this.props.ResetData(); this.props.ShufflePlay()})
+    this.setState({isShuffleSurah : !this.state.isShuffleSurah},()=>{if(!this.state.isShuffleSurah) return; this.props.ResetData(); this.props.ShufflePlay()})
   }
   render(){  
     return (
@@ -41,7 +41,7 @@ class SurahList extends Component {
           <div className="body_content mb-0">
             <div className={!this.state.isShuffleSurah ? "checkdetailheader text-center" : "checkdetailheader text-center activebtn"}>
               <h1>{this.props.qariDetail.name}</h1>
-              <button onClick={this.shuffleSurah}>{this.state.isShuffleSurah ? <FontAwesomeIcon icon={Icons.faStop}/> : <FontAwesomeIcon icon={Icons.faPlay}/>}Shuffle Play</button>
+              <button onClick={this.shuffleSurah}>{this.state.isShuffleSurah ? <i className="fa fa-stop"></i> : <i className="fa fa-play"></i>}Shuffle Play</button>
             </div>
             <section className="islamcheck_detail">
               <div className="container">
@@ -69,26 +69,24 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay})(SurahList);
 
 class IndividualListItem extends Component{
-   secondsToHms =(d)=> {
+  secondsToHms =(d)=> {
     const time = moment.utc(Math.round(d)*1000).format('HH') === '00' ? moment.utc(Math.round(d)*1000).format('mm:ss') : moment.utc(Math.round(d)*1000).format('HH:mm:ss');
     return time; 
   }
   render(){
     return(
       <div >
-      <li className={this.props.surahID === this.props.item.id ? "list-group-item checklistbox selectedClass"  :"list-group-item checklistbox"}>
+      <li className={this.props.surahID === this.props.item.id ? "list-group-item checklistbox selectedClass"  :"list-group-item checklistbox"}  onClick={() => this.props.onPlaySurah(this.props.item, this.props.index)}>
         <div className="row align-items-center">
           <div className="col-md-4 col-xs-8">
             <div className="row align-items-center">
-              <div className="col-md-1">
+              <div className="col-md-3">
                 <div className="number">
                   {this.props.index + 1}.
                 </div>
+                <i className="fa fa-play"/>
               </div>
-              <div className="col-md-1" onClick={() => this.props.onPlaySurah(this.props.item, this.props.index)}>
-                <FontAwesomeIcon icon={Icons.faPlay} />
-              </div>
-              <div className="col-md-10">
+              <div className="col-md-9">
                 <div className="surah_name">
                   <h5>{this.props.item.name}</h5>
                 </div>
@@ -98,7 +96,7 @@ class IndividualListItem extends Component{
           <ReadAndDownloadButton filePath={this.props.item.file_name} index={this.props.index + 1} />
           <div className="text-right col-md-2 col-xs-4">
             <h6 className="">
-              <FontAwesomeIcon icon={Icons.faClock} aria-hidden="true"/> {this.props.surahID === this.props.item.id ? `${moment.utc(Math.round(this.props.progressValue)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.progressValue)*1000).format('mm:ss') : moment.utc(Math.round(this.props.progressValue)*1000).format('HH:mm:ss')} / ${moment.utc(Math.round(this.props.audioDuration)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.audioDuration)*1000).format('mm:ss') : moment.utc(Math.round(this.props.audioDuration)*1000).format('HH:mm:ss')}` :  this.secondsToHms(this.props.item.duration)}
+              <i className="fa fa-clock-o" aria-hidden="true"/> {this.props.surahID === this.props.item.id ? `${moment.utc(Math.round(this.props.progressValue)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.progressValue)*1000).format('mm:ss') : moment.utc(Math.round(this.props.progressValue)*1000).format('HH:mm:ss')} / ${moment.utc(Math.round(this.props.audioDuration)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.audioDuration)*1000).format('mm:ss') : moment.utc(Math.round(this.props.audioDuration)*1000).format('HH:mm:ss')}` :  this.secondsToHms(this.props.item.duration)}
             </h6>
           </div>
         </div>
@@ -113,9 +111,9 @@ class ReadAndDownloadButton extends Component{
     return(
       <div className="text-right col-md-6 hidden-xs">
         <div className="overtext">
-          <Link to="/" className=""><FontAwesomeIcon icon={Icons.faUser}/><span> Other Qaris</span></Link>
-          <a href={'http://18.189.100.203/#/'+this.props.index} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faBook}/> <span>Read</span></a>
-          <a href={'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'+this.props.filePath} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={Icons.faArrowCircleDown}/><span> Download</span></a>
+          <Link to="/" className=""><i className="fa fa-user"></i><span> Other Qaris</span></Link>
+          <a href={'http://18.189.100.203/#/'+this.props.index} target="_blank" rel="noopener noreferrer"><i className="fa fa-book"></i> <span>Read</span></a>
+          <a href={'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'+this.props.filePath} target="_blank" rel="noopener noreferrer"><i className="fa fa-arrow-circle-down"></i><span> Download</span></a>
         </div>
       </div>
     )
