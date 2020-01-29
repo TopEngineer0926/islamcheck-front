@@ -22,7 +22,6 @@ class QariLIst extends Component {
         {this.props.isQariListLoaded && <Loader/>}
         {!this.props.isQariListLoaded && 
           <section id="tabs" className="project-tab">
-            <div className="container">
               <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                   {
@@ -30,7 +29,6 @@ class QariLIst extends Component {
                   }
                 </div>
               </div>
-            </div>
           </section>
         }
       </div>

@@ -1222,20 +1222,20 @@ a.sidelogo {
 }
 
 
-/* .react-tabs__tab-list{
+.react-tabs__tab-list{
 border: none !important;
-} */
+}
 
 
-/* .react-tabs__tab-list:after {
+.react-tabs__tab-list::before {
 content: "";
 border-top: 1px solid rgba(0,0,0,.1);
 position: absolute;
 left: 0;
 right: 0;
-bottom: -48px;
+margin-top: 43px;
 z-index: -1;
-} */
+}
 
 .react-tabs__tab {
   position: relative !important;
