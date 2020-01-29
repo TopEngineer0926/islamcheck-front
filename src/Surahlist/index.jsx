@@ -62,7 +62,8 @@ const mapStateToProps = state => ({
   surahID : state.qariAndSurah.surahID,
   progressValue : state.qariAndSurah.progressValue,
   audioDuration : state.qariAndSurah.audioDuration,
-  isPlaySurah : state.qariAndSurah.isPlaySurah
+  isPlaySurah : state.qariAndSurah.isPlaySurah,
+  languageSelected : state.qariAndSurah.languageSelected
 });
 export default connect(mapStateToProps, {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay})(SurahList);
 

@@ -1259,8 +1259,8 @@ z-index: -1;
 
 /**  Loader  **/
 
-.loader.loadersmall {
-  border: 3px solid #3061a7;
+.loadersmall {
+  border: 3px solid #fff;
   border-radius: 50%;
   border-top: 3px solid #56c0d0;
   width: 22px;
@@ -1270,10 +1270,16 @@ z-index: -1;
   /* margin: auto; */
   overflow: hidden;
   display: block;
+margin: 0 9px;
 }
 .wraper_laader {
   padding-top: 15%;
   padding-bottom: 15%;
+}
+
+.wraper_loader {
+  padding-top: 12%;
+  padding-bottom: 12%;
 }
 
 .loader {

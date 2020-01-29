@@ -18,7 +18,7 @@ class BismillahComp extends Component {
     this.props.StartLoader(SECTION_LOADER);
   }
   componentDidMount(){
-    this.props.GetData('sections', TAB_SECTIONS);
+    this.props.GetData('sections/'+this.props.languageSelected.code, TAB_SECTIONS);
   }
   tabPanels = () => {
     const tabsArray = [];
@@ -55,6 +55,7 @@ class BismillahComp extends Component {
 }
 const mapStateToProps = state => ({
   sections : state.qariAndSurah.sections,
-  isLoaderStart : state.qariAndSurah.isLoaderStart
+  isLoaderStart : state.qariAndSurah.isLoaderStart,
+  languageSelected : state.qariAndSurah.languageSelected
 });
 export default connect(mapStateToProps, {GetData, StartLoader})(BismillahComp); 

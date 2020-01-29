@@ -10,16 +10,16 @@ import { SELECTED_SURAH_ID,
 import {server} from './server';
 
 export const StartLoader = (type) => ({
-    type: type,
-    payload: true
+  type: type,
+  payload: true
 });
 export const GetData = (api, actionType) => async dispatch  => {
   const requestOptions = {
     method: 'GET',
   };
-  // console.log('********* Server Api **********');
-  // console.log(server+api);
-  // console.log('******************');
+  console.log('********* Server Api **********');
+  console.log(server+api);
+  console.log('******************');
   fetch(server+api,requestOptions).then(response => response.json())
     .then(res=>{
      // console.log(res);
@@ -64,9 +64,9 @@ export const ChangeSurah = (title) => ({
   type: SURAH_CHANGE,
   payload: title
 });
-export const SelectedLanguage = (name) => ({
+export const SelectedLanguage = (selectedLang) => ({
   type: SELECT_LANGUAGE,
-  payload: name
+  payload: selectedLang
 });
 export const ShufflePlay = () => ({
   type: SHUFFLE_PLAY,

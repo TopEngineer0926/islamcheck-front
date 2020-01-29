@@ -14,7 +14,7 @@ class QariLIst extends Component {
     this.props.StartLoader(QARI_LIST_LOADER);
   }
   componentDidMount(){
-    this.props.GetData(`qaris/${this.props.id}`, QARI_LIST);
+    this.props.GetData(`qaris/${this.props.id}/${this.props.languageSelected.code}`, QARI_LIST);
   }
   render(){
     return (
@@ -39,7 +39,8 @@ class QariLIst extends Component {
 }
 const mapStateToProps = state => ({
   qariList : state.qariAndSurah.qariList,
-  isQariListLoaded : state.qariAndSurah.isQariListLoaded
+  isQariListLoaded : state.qariAndSurah.isQariListLoaded,
+  languageSelected : state.qariAndSurah.languageSelected
 });
 export default connect(mapStateToProps, {GetData, StartLoader})(QariLIst);
 

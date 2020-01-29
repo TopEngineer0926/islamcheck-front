@@ -18,9 +18,7 @@ class App extends React.Component {
             <Route path="/surah-list/:id" children={<Child/>}/>
           </Router>
           {this.props.isPlaySurah && 
-            <PlayerDesign  
-              specificSurah={this.props.surahList[this.props.currentIndex]}
-            />
+            <PlayerDesign specificSurah={this.props.surahList[this.props.currentIndex]}/>
           }
         <Footer/>                     
       </div>

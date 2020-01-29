@@ -40,7 +40,7 @@ const initialState = {
   audioDuration : '',
   percentageValue : 0,
   isSurahLoaded : false,
-  languageSelected : 'English',
+  languageSelected : {name : 'English', code : 'en'},
   languageList : []
 };
 //'English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano'

@@ -42,8 +42,8 @@ class PlayerDesign extends Component{
                   <EachSvgComponent id="Capa_1" data_name="Capa 1" title='previous' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.3 16.52" d1="M132.62,104l8.11-5.75v16.52l-8.11-5.75v5.75l-9.42-6.68v6.68h-3.77V98.29h3.77V105l9.42-6.68Z" transform="translate(-119.43 -98.29)"/>
                 </button>
                 {!this.props.isSurahLoaded && 
-                  <div className="wraper_laader">
-                    <div className="loader loadersmall"></div>
+                  <div className="wraper_loader">
+                    <div className="loadersmall"></div>
                   </div>
                 }
                 {this.props.isSurahLoaded &&
