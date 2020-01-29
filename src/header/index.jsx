@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 //import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.svg';
 import {connect} from 'react-redux';
-import {SelectedLanguage} from '../Redux/actions';
+import {SelectedLanguage, GetData} from '../Redux/actions';
+import {GET_LANGUAGES} from '../Redux/actionType';
 import SideBar from './sidebar';
  
 class Header extends Component {
   state = {
     isLanguageDisplay : false,
     isOPenSideBar : false
+  }
+  componentDidMount(){
+    this.props.GetData(`languages`, GET_LANGUAGES);
   }
   onLanguageSelected = () => {
     this.setState({isLanguageDisplay : false})
@@ -42,12 +46,12 @@ const mapStateToProps = state => ({
   languageSelected : state.qariAndSurah.languageSelected,
   languageList : state.qariAndSurah.languageList
 });
-export default connect(mapStateToProps, {SelectedLanguage})(Header);
+export default connect(mapStateToProps, {SelectedLanguage, GetData})(Header);
 
 class SingleButton extends Component{
   render(){
     return(
-      <button onClick={()=>{this.props.onLanguageSelected(); this.props.onSelectLanguage(this.props.item)}} type="button" tabIndex="0" role="menuitem" className="stripe Selected dropdown-item">{this.props.item}</button>
+      <button onClick={()=>{this.props.onLanguageSelected(); this.props.onSelectLanguage(this.props.item.name)}} type="button" tabIndex="0" role="menuitem" className="stripe Selected dropdown-item">{this.props.item.name}</button>
     )
   }
 }

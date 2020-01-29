@@ -17,3 +17,4 @@ export const SURAH_CHANGE = 'SURAH_CHANGE';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
 export const SHUFFLE_PLAY = 'SHUFFLE_PLAY';
 export const IS_SURAH_LOADED = 'IS_SURAH_LOADED';
+export const GET_LANGUAGES = 'GET_LANGUAGES';

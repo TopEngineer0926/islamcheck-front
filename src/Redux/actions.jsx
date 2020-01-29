@@ -22,7 +22,7 @@ export const GetData = (api, actionType) => async dispatch  => {
   // console.log('******************');
   fetch(server+api,requestOptions).then(response => response.json())
     .then(res=>{
-      console.log(res);
+     // console.log(res);
       dispatch({
         type: actionType,
         payload: res
@@ -56,7 +56,7 @@ export const StartAndStartAudio = (value) => ({
   type: START_OR_STOP,
   payload: value
 });
-export const SurahComplete = (value) => ({
+export const SurahComplete = () => ({
   type: SURAH_COMPLETED,
   payload: true
 });

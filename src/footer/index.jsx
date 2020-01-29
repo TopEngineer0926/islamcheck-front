@@ -9,7 +9,7 @@ class Footer extends Component {
     let i = 0;
     let footerArray = [];
     while(i < this.props.languageList.length){
-      footerArray.push(<LanguageDiv key={i} list={this.props.languageList.slice(i, i+5)}/>);
+      footerArray.push(<LanguageDiv key={i} list={this.props.languageList.slice(i, i+5)} onSelectLanguage={this.props.SelectedLanguage}/>);
       i = i + 5;
     }
     return footerArray;
@@ -49,7 +49,7 @@ class LanguageDiv extends Component{
       <div className="col-sm-3 col-md-3">
         <ul className="footerstyle">
           {this.props.list.map((item,index)=><li key={index+item} style={{cursor: 'pointer'}}>
-            <a className="small" href="/#">{item}</a></li>)}
+            <a className="small" href="/#" onClick={()=> this.props.onSelectLanguage(item.name)}>{item.name}</a></li>)}
         </ul>
       </div>
     )

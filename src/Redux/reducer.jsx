@@ -14,6 +14,7 @@ import { TAB_SECTIONS,
   SURAH_COMPLETED,
   SURAH_CHANGE,
   SELECT_LANGUAGE,
+  GET_LANGUAGES,
   SHUFFLE_PLAY,
 } from './actionType';
 
@@ -40,15 +41,20 @@ const initialState = {
   percentageValue : 0,
   isSurahLoaded : false,
   languageSelected : 'English',
-  languageList : ['English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano']
+  languageList : []
 };
-
+//'English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano'
 export default function(state = initialState, action) {
   switch (action.type) {
     case SELECT_LANGUAGE:
       return{
         ...state,
         languageSelected : action.payload
+      };
+    case GET_LANGUAGES:
+      return{
+        ...state,
+        languageList : action.payload.status === 'success' ? action.payload.data : []
       };
     case SECTION_LOADER:
       return{

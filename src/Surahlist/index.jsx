@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import '../assets/style.css';
 import {Link} from 'react-router-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import * as Icons from "@fortawesome/free-solid-svg-icons";
 import {SURAH_LIST, SURAH_LIST_LOADER} from '../Redux/actionType';
 import {connect} from 'react-redux';
 import {GetData, StartLoader, SelectedSurahId, ResetData, ShufflePlay} from '../Redux/actions';
