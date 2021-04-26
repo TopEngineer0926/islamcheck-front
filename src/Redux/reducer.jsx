@@ -13,10 +13,13 @@ import { TAB_SECTIONS,
   START_OR_STOP,
   SURAH_COMPLETED,
   SURAH_CHANGE,
+  CHANGE_LANGUAGE,
   SELECT_LANGUAGE,
   GET_LANGUAGES,
   SHUFFLE_PLAY,
+  RESET_CHANGE_QARI_FLAG
 } from './actionType';
+import moment from 'moment';
 
 const initialState = {
   sections : [],
@@ -32,7 +35,8 @@ const initialState = {
   isHaramainTaraweehLoaded : false,
   alphabeticalOrderListOfTaraweeh : [],
   surahID : '',
-  audioFile : '',
+  qariID : '',
+  isQariChange : false,
   currentIndex : 0,
   isPlaySurah : false,
   isPlaying : false,
@@ -40,16 +44,34 @@ const initialState = {
   audioDuration : '',
   percentageValue : 0,
   isSurahLoaded : false,
-  languageSelected : {name : 'English', code : 'en'},
-  languageList : []
+  isLanguageChange : false,
+  languageSelected : {
+    native_name : 'Deutsch', 
+    code : 'de', 
+    language_word: " Sprachen",
+    other_qaris: "Andere Qaris",
+    shuffle_play: "Zufallswiedergabe",
+    download: "Herunterladen",
+    read: "Lesen",
+    start: "Start"
+  },
+  languageList : [],
+  selectedQari : {},
+  selectedSurah : '',
 };
-//'English', 'Deutsch', 'Türkçe', 'عربى', 'Bosanski', 'Gjuhë Shqipe', 'اردو', 'فارسی', 'Русский', 'български', 'Français', 'Nederlands', 'Italiano'
+
 export default function(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_LANGUAGE:
+      return{
+        ...state,
+        isLanguageChange : action.payload
+      };
     case SELECT_LANGUAGE:
       return{
         ...state,
-        languageSelected : action.payload
+        languageSelected : action.payload,
+        isLanguageChange : true,
       };
     case GET_LANGUAGES:
       return{
@@ -66,12 +88,12 @@ export default function(state = initialState, action) {
       if(action.payload.status === 'success'){
         sectionsList = action.payload.data;
         const Index = sectionsList.findIndex(checkIndex);
-        function checkIndex(component){return component.name === 'Non-Hafs Recitations'}
+        function checkIndex(component){return component.english_name === 'Non-Hafs Recitations'}
         sectionsList.splice(Index, 1);
       }
       return{
         ...state,
-        sections : action.payload.status === 'success' ? sectionsList : [],
+        sections : action.payload.status === 'success' ? action.payload.data : [],
         isLoaderStart : action.payload.status === 'success' ? false : true
       };
     case QARI_LIST_LOADER:
@@ -87,28 +109,31 @@ export default function(state = initialState, action) {
         for(let i = 0; i < qariNames.length; i++){
           const selectedIndex = state.alphabeticalOrderList.findIndex(checkIndex);
           function checkIndex(component){
-            return component.letter === qariNames[i].name.charAt(0) ;
+            return component.letter === qariNames[i].english_name.charAt(0) ;
           }
-          if(qariNames[i].name.charAt(0) === check_letter){
+          if(qariNames[i].english_name.charAt(0) === check_letter){
             state.alphabeticalOrderList[selectedIndex] = { id : qariNames[i].id,
-              letter : qariNames[i].name.charAt(0),
+              letter : qariNames[i].english_name.charAt(0),
               names : [...state.alphabeticalOrderList[selectedIndex].names, qariNames[i]]}
           }
-          else{            
-            check_letter = qariNames[i].name.charAt(0);
+          else{
+            check_letter = qariNames[i].english_name.charAt(0);
             if(selectedIndex > -1){
               state.alphabeticalOrderList[selectedIndex] = { id : qariNames[i].id,
-                letter : qariNames[i].name.charAt(0),
+                letter : qariNames[i].english_name.charAt(0),
                 names : [...state.alphabeticalOrderList[selectedIndex].names, qariNames[i]]}
             }
             else{
               state.alphabeticalOrderList.push({
                 id : qariNames[i].id,
-                letter : qariNames[i].name.charAt(0),
+                letter : qariNames[i].english_name.charAt(0),
                 names : [qariNames[i]]
               });
             } 
           }
+        }
+        for(let i = 0; i < state.alphabeticalOrderList.length; i++){
+          state.alphabeticalOrderList[i].names.sort((a, b) => moment.utc(a.created_at)*1000 - moment.utc(b.created_at)*1000);
         }
       }
       return{
@@ -142,28 +167,31 @@ export default function(state = initialState, action) {
         for(let i = 0; i < TaraweehNames.length; i++){
           const selectedIndex = state.alphabeticalOrderListOfTaraweeh.findIndex(checkIndex);
           function checkIndex(component){
-            return component.word === TaraweehNames[i].name.split(' ')[0] ;
+            return component.word === TaraweehNames[i].english_name.charAt(0) ;
           }
-          if(TaraweehNames[i].name.split(' ')[0] === check_letter){
+          if(TaraweehNames[i].english_name.charAt(0) === check_letter){
             state.alphabeticalOrderListOfTaraweeh[selectedIndex] = { id : TaraweehNames[i].id,
-              word : TaraweehNames[i].name.split(' ')[0],
+              word : TaraweehNames[i].english_name.charAt(0),
               names : [...state.alphabeticalOrderListOfTaraweeh[selectedIndex].names, TaraweehNames[i]]}
           }
           else{            
-            check_letter = TaraweehNames[i].name.split(' ')[0];
+            check_letter = TaraweehNames[i].english_name.charAt(0);
             if(selectedIndex > -1){
               state.alphabeticalOrderListOfTaraweeh[selectedIndex] = { id : TaraweehNames[i].id,
-                word : TaraweehNames[i].name.split(' ')[0],
+                word : TaraweehNames[i].english_name.charAt(0),
                 names : [...state.alphabeticalOrderListOfTaraweeh[selectedIndex].names, TaraweehNames[i]]}
             }
             else{
               state.alphabeticalOrderListOfTaraweeh.push({
                 id : TaraweehNames[i].id,
-                word : TaraweehNames[i].name.split(' ')[0],
+                word : TaraweehNames[i].english_name.charAt(0),
                 names : [TaraweehNames[i]]
               });
             } 
           }
+        }
+        for(let i = 0; i < state.alphabeticalOrderListOfTaraweeh.length; i++){
+          state.alphabeticalOrderListOfTaraweeh[i].names.sort((a, b) => moment.utc(a.created_at)*1000 - moment.utc(b.created_at)*1000);
         }
       }
       return{
@@ -174,11 +202,18 @@ export default function(state = initialState, action) {
     case SELECTED_SURAH_ID:
       return{
         ...state,
-        surahID : action.payload.item.id,
-        audioFile : action.payload.item.file_name,
+        selectedQari : state.qariDetail,
+        selectedSurah : action.payload.item,
+        surahID : action.payload.item.surah_id,
         currentIndex : action.payload.currentIndex,
         isPlaySurah : action.payload.isPlaySurah,
-        isPlaying : action.payload.isPlaying
+        isPlaying : action.payload.isPlaying,
+        isQariChange : true,
+      };
+    case RESET_CHANGE_QARI_FLAG:
+      return{
+        ...state,
+        isQariChange : action.payload,
       };
     case AUDIO_DURATION:
       return{
@@ -208,25 +243,41 @@ export default function(state = initialState, action) {
     case SURAH_COMPLETED:
       return{
         ...state,
-        currentIndex : action.payload === true && state.currentIndex < 113 ? state.currentIndex + 1 : state.currentIndex,
-        surahID : action.payload === true && state.currentIndex < 113 ? state.surahID + 2 : state.surahID
+        currentIndex : action.payload === true && state.currentIndex < state.surahList.length - 1 ? state.currentIndex + 1 : state.currentIndex,
+        surahID : action.payload === true && state.currentIndex < state.surahList.length - 1 ? state.surahList[state.currentIndex + 1].surah_id : state.surahID,
+        isQariChange : true,
+        selectedQari : state.qariDetail,
+        selectedSurah : state.currentIndex < state.surahList.length - 1 ? state.surahList[state.currentIndex + 1] : state.surahList[state.currentIndex] ,
       };
     case SURAH_CHANGE:
       return{
         ...state,
         currentIndex : action.payload === 'previous' ? state.currentIndex - 1 : state.currentIndex + 1,
-        surahID : action.payload === 'previous' ? state.surahID - 2 : state.surahID + 2,
+        surahID : action.payload === 'previous' ? state.surahList[state.currentIndex - 1].surah_id : state.surahList[state.currentIndex + 1].surah_id,
+        isQariChange : true,
+        selectedQari : state.qariDetail,
+        selectedSurah : action.payload === 'previous' ? state.surahList[state.currentIndex - 1] : state.surahList[state.currentIndex + 1],
       };
     case SHUFFLE_PLAY:
-      const randomIndex = Math.floor(Math.random() * 113);
+      const range = state.surahList.length - 1;
+      const randomIndex = Math.floor(Math.random() * range);
       return{
         ...state,
         isPlaySurah : action.payload === true && state.isPlaySurah === false ? true : state.isPlaySurah,
         isPlaying : action.payload === true && state.isPlaying === false ? true : state.isPlaying,
         currentIndex : action.payload === true ? randomIndex : state.currentIndex,
-        surahID : action.payload === true ? (randomIndex * 2) + 1 : state.surahID,
+        surahID : action.payload === true ? state.surahList[randomIndex].surah_id : state.surahID,
+        isQariChange : true,
+        selectedQari : state.qariDetail,
+        selectedSurah : state.surahList[randomIndex],
       };
     default:
       return state;
   }
 }
+
+// for(let i = 0; i < state.alphabeticalOrderList.length; i++){
+        //   for(let j = 0; j < state.alphabeticalOrderList[i].names.length; j++){
+        //     console.log(state.alphabeticalOrderList[i].names[j].created_at);
+        //     console.log(state.alphabeticalOrderList[i].names[j].english_name)
+        //   }

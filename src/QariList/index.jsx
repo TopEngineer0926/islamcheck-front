@@ -22,13 +22,11 @@ class QariLIst extends Component {
         {this.props.isQariListLoaded && <Loader/>}
         {!this.props.isQariListLoaded && 
           <section id="tabs" className="project-tab">
-              <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  {
-                    this.props.qariList.sort((a, b) => a.letter.localeCompare(b.letter)).map((item, i) => <SpecificLetterNames key={item.id} item={item}/>)
-                  }
-                </div>
+            <div className="tab-content" id="nav-tabContent">
+              <div className="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                {this.props.qariList.map((item, i) => <SpecificLetterNames key={item.id} item={item}/>)}
               </div>
+            </div>
           </section>
         }
       </div>
@@ -46,17 +44,18 @@ class SpecificLetterNames extends Component{
   render(){
     return(
       <div>
-      <div className="islam_names d-flex py-4">
-        <div className="ellipse_text">{this.props.item.letter}</div>
-        <div className="names_text row">
-          {this.props.item.names.map((item) => <IndividualQariName key={item.id} item={item}/>)}
+        <div className="islam_names d-flex py-4">
+          <div className="ellipse_text">{this.props.item.letter}</div>
+          <div className="names_text row">
+            {this.props.item.names.map((item) => <IndividualQariName key={item.id} item={item}/>)}
+          </div>
         </div>
-    </div>
-    <hr/>
-    </div>
+        <hr/>
+      </div>
     )
   }
 }
+
 class IndividualQariName extends Component{
   render(){
     return(

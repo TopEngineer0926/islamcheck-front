@@ -108,9 +108,14 @@ header .dropdown-menu {
   border-radius: .25rem;
 }
 
-header .dropdown-menu .dropdown-item:hover {
+header .dropdown-menu .dropdown-item:hover
+{
   background: rgba(86, 192, 208, 0.66);
   color: #fff;
+}
+.selectedLanguage{
+  background: rgba(86, 192, 208, 0.66);
+  color: #fff !important;
 }
 
 header .dropdown-menu .dropdown-item:focus {
@@ -401,6 +406,10 @@ header .dropdown-menu .dropdown-item:focus {
   top: -18px;
   right: 0;
 }
+.checklistbox .directionRtl {
+  direction: rtl;
+}
+
 
 .checklistbox .overtext a {
   font-size: 14px;
@@ -462,7 +471,9 @@ header .dropdown-menu .dropdown-item:focus {
   user-select: none;
   color: #fff;
   background: #56c0d0;
-  z-index: 9999;
+  z-index: 99;
+  margin-top: -55px;
+
 }
 
 .ap-inner {
@@ -1211,9 +1222,12 @@ a.sidelogo {
 
 .react-tabs__tab {
   border: none !important;
-  padding: 10px 12px !important;
+  padding: 12px 0px !important;
   font-size: 14px;
   font-weight: 600;
+  color: #545454;
+  margin: 0 15px;
+
 }
 
 .react-tabs__tab--selected {
@@ -1224,6 +1238,7 @@ a.sidelogo {
 
 .react-tabs__tab-list{
 border: none !important;
+margin: 0 !important;
 }
 
 
@@ -1233,7 +1248,7 @@ border-top: 1px solid rgba(0,0,0,.1);
 position: absolute;
 left: 0;
 right: 0;
-margin-top: 43px;
+margin-top: 47px;
 z-index: -1;
 }
 
@@ -1246,10 +1261,23 @@ z-index: -1;
   border-right: solid 2px;
   height: 15px;
   margin-top: 5px;
-  left: 0;
-  right: 0;
+  right: -15px;
   position: absolute;
+  color: #ccc;
 }
+/* .react-tabs__tab--selected::before {
+  top: 38px;
+    background: red;
+    content: "";
+    height: 2px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    color: #ccc;
+    width: 75%;
+    margin: auto;
+    bottom: -8px;
+} */
 
 .react-tabs__tab:last-child::after {
   content: "";
@@ -1531,11 +1559,14 @@ span.bm-burger-bars:nth-child(3) {
 }
 
 a.bm-item.Banner svg {
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 
 /* add css by naeem */
+.footerstyle li {
+  padding: 3px 0;
+}
 
 .footerstyle a {
   text-decoration: none;
@@ -1569,3 +1600,10 @@ svg.svg-inline--fa.fa-clock {
 }
 
 /* add css by naeem ********end*/
+
+.surah_name{
+  margin-left: 25px;
+}
+.react-tabs__tab:first-child {
+  margin-left: 0;
+}

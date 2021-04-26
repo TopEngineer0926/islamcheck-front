@@ -14,7 +14,7 @@ class HaramainTaraweeh extends Component {
     this.props.StartLoader(HARAMAIN_TARAWEEH_LIST_LOADED);
   }
   componentDidMount(){
-    this.props.GetData(`qaris/${this.props.id}`, HARAMAIN_TARAWEEH_LIST);
+    this.props.GetData(`qaris/${this.props.id}/${this.props.languageSelected.code}`, HARAMAIN_TARAWEEH_LIST);
   }
   render(){    
     return (
@@ -22,9 +22,7 @@ class HaramainTaraweeh extends Component {
         {this.props.isHaramainTaraweehLoaded && <Loader/>}
         {!this.props.isHaramainTaraweehLoaded && 
           <section id="tabs" className="project-tab">
-            {
-              this.props.haramainTaraweehList.map((item, i) => <SpecificComponent key={item.id} item={item}/>)
-            }
+            {this.props.haramainTaraweehList.map((item, i) => <SpecificComponent key={item.id} item={item}/>)}
           </section>
         }
       </div>
@@ -33,19 +31,26 @@ class HaramainTaraweeh extends Component {
 }
 const mapStateToProps = state => ({
   haramainTaraweehList : state.qariAndSurah.haramainTaraweehList,
-  isHaramainTaraweehLoaded : state.qariAndSurah.isHaramainTaraweehLoaded
+  isHaramainTaraweehLoaded : state.qariAndSurah.isHaramainTaraweehLoaded,
+  languageSelected : state.qariAndSurah.languageSelected
 });
 export default connect(mapStateToProps, {GetData, StartLoader})(HaramainTaraweeh);
 
 class SpecificComponent extends Component{
   render(){
     return(
-      <div className="islam_names py-4">
-        <div className="names">{this.props.item.word}</div>
-          <div className="names_text row">
+      // <div className="islam_names py-4">
+      //   <div className="names">{this.props.item.word}</div>
+      //     <div className="names_text row">
+      //     {this.props.item.names.map((item) => <MakkahMadinaTaraweeh key={item.id} item={item}/>)}
+      //     </div>
+      //  </div>
+      <div className="islam_names d-flex py-4">
+        <div className="ellipse_text">{this.props.item.word}</div>
+        <div className="names_text row">
           {this.props.item.names.map((item) => <MakkahMadinaTaraweeh key={item.id} item={item}/>)}
-          </div>
-       </div>
+        </div>
+      </div>
     )
   }
 }

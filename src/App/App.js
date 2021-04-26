@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, useParams} from 'react-router-dom';
+import {Route, Router, useParams, Switch} from 'react-router-dom';
 import Header from '../header';
 import Footer from '../footer';
 import BismillahComp from '../QariList/Bismillah';
@@ -11,24 +11,27 @@ import { history } from './history';
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Header/>
-          <Router history={history} basename={ process.env.PUBLIC_URL }>
-            <Route exact path="/" component={BismillahComp}/>
-            <Route path="/surah-list/:id" children={<Child/>}/>
-          </Router>
-          {this.props.isPlaySurah && 
-            <PlayerDesign specificSurah={this.props.surahList[this.props.currentIndex]}/>
-          }
-        <Footer/>                     
-      </div>
+      <Router history={history} basename={ process.env.PUBLIC_URL }>
+        <div>
+          <Header/>
+            <Switch>
+              <Route exact path="/" component={BismillahComp}/>
+              <Route path="/surah-list/:id" children={<Child/>}/>
+            </Switch>
+            {this.props.isPlaySurah && 
+              <PlayerDesign specificSurah={this.props.surahList[this.props.currentIndex]} audioPath={this.props.audioPath}/>
+            }
+          <Footer/>                     
+        </div>
+      </Router>
     );
   }
 }
 const mapStateToProps = state => ({
   surahList : state.qariAndSurah.surahList,
   currentIndex : state.qariAndSurah.currentIndex,
-  isPlaySurah : state.qariAndSurah.isPlaySurah
+  isPlaySurah : state.qariAndSurah.isPlaySurah,
+  audioPath : state.qariAndSurah.audioPath,
 });
 export default connect(mapStateToProps)(App);
 

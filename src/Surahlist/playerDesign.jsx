@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../assets/style.css';
 import ReactPlayer from 'react-player';
 import {connect} from 'react-redux';
-import {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData} from '../Redux/actions';
+import {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData, ResetChangeQariFlag} from '../Redux/actions';
 import Slider from 'react-input-slider';
 import moment from 'moment';
 
@@ -10,8 +10,8 @@ class PlayerDesign extends Component{
   constructor(props){
     super(props);
     this.state = {
-      volume : 0.5,
       isSurahrepeated : false,
+      audioFile : this.props.audioPath+this.props.specificSurah.file_name
     }
   }
   onEndAudio = () => {
@@ -31,6 +31,17 @@ class PlayerDesign extends Component{
   ref = player => {
     this.player = player
   }
+  static getDerivedStateFromProps(props, state) {
+    if(props.isQariChange){
+      state.audioFile = props.audioPath+props.specificSurah.file_name
+    }
+    return state;
+  }
+  componentDidUpdate(){
+    if(this.props.isQariChange){
+      this.props.ResetChangeQariFlag();
+    }
+  }
   render(){
     return(
       <div className="ap" id="ap">
@@ -38,7 +49,7 @@ class PlayerDesign extends Component{
           <div className="ap-inner">
             <div className="ap-panel">
               <div className="ap-item ap--playback">
-                <button disabled={this.props.surahID === 1 ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('previous')}} className={this.props.surahID === 1 ? "ap-controls ap-prev-btn disabled" : "ap-controls ap-prev-btn" }>
+                <button disabled={this.props.surahID === this.props.surahList[0].surah_id ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('previous')}} className={this.props.surahID === this.props.surahList[0].surah_id ? "ap-controls ap-prev-btn disabled" : "ap-controls ap-prev-btn" }>
                   <EachSvgComponent id="Capa_1" data_name="Capa 1" title='previous' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.3 16.52" d1="M132.62,104l8.11-5.75v16.52l-8.11-5.75v5.75l-9.42-6.68v6.68h-3.77V98.29h3.77V105l9.42-6.68Z" transform="translate(-119.43 -98.29)"/>
                 </button>
                 {!this.props.isSurahLoaded && 
@@ -52,13 +63,13 @@ class PlayerDesign extends Component{
                     {this.props.isPlaying &&<EachSvgComponent id="Capa_1" data_name="Capa 1" title='pause-two-lines' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.5 45.06" d1="M81.83,84.78A2.18,2.18,0,0,0,84,82.61V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z" transform="translate(-40.5 -39.72)" d2="M55.7,84.78a2.18,2.18,0,0,0,2.17-2.17V41.89a2.18,2.18,0,0,0-2.17-2.17h-13a2.18,2.18,0,0,0-2.17,2.17V82.61a2.18,2.18,0,0,0,2.17,2.17Z"/>}
                   </button>
                 }
-                <button disabled={this.props.surahID === 227 ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('next')}} className={this.props.surahID === 227 ? "ap-controls ap-next-btn disabled" :"ap-controls ap-next-btn"}>
+                <button disabled={this.props.surahID === this.props.surahList[this.props.surahList.length - 1].surah_id ? true : false} onClick={()=>{this.props.ResetData(); this.props.ChangeSurah('next')}} className={this.props.surahID === this.props.surahList[this.props.surahList.length - 1].surah_id ? "ap-controls ap-next-btn disabled" :"ap-controls ap-next-btn"}>
                   <EachSvgComponent id="Capa_1" data_name="Capa 1" title='previous' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.31 16.54" d1="M127.54,109.06l-8.11,5.76V98.3l8.12,5.74V98.29L137,105V98.28h3.77V114.8H137v-6.67l-9.42,6.68Z" transform="translate(-119.42 -98.28)"/>
                 </button>
               </div>
               <div className="ap-item ap--track">
                 <div className="ap-info">
-                  <div className="ap-title">{`${this.props.qariDetail.name} ( ${this.props.specificSurah.name} )`}</div>
+                  <div className="ap-title">{`${this.props.selectedQari.name} ( ${this.props.selectedSurah.name} )`}</div>
                   <div className="ap-time">
                     <span className="ap-time--current">{moment.utc(Math.round(this.props.progressValue)*1000).format('HH') === '00' ? moment.utc(Math.round(this.props.progressValue)*1000).format('mm:ss') : moment.utc(Math.round(this.props.progressValue)*1000).format('HH:mm:ss')}</span>
                     <span> / </span>
@@ -100,19 +111,21 @@ class PlayerDesign extends Component{
         <ReactPlayer
           ref={this.ref}
           className='react-player'
-          url= {'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'+this.props.specificSurah.file_name}
+          width = '0px'
+          height = '0px'
+          url= {this.state.audioFile}
           progressInterval = {this.props.progressBarValue}
-          volume = {parseFloat(this.state.volume)}
           playing = {this.props.isPlaying}
           loop = {this.state.isSurahrepeated}
           onEnded = {this.onEndAudio}
-          onProgress ={this.onProgressAudio}
+          onProgress = {this.onProgressAudio}
           onDuration = {this.onDurationAudio}
         />
       </div>
     )
   }
 }
+
 const mapStateToProps = state => ({
   progressValue : state.qariAndSurah.progressValue,
   audioDuration : state.qariAndSurah.audioDuration,
@@ -120,9 +133,13 @@ const mapStateToProps = state => ({
   surahID : state.qariAndSurah.surahID,
   isPlaying : state.qariAndSurah.isPlaying,
   qariDetail : state.qariAndSurah.qariDetail,
-  isSurahLoaded : state.qariAndSurah.isSurahLoaded
+  isSurahLoaded : state.qariAndSurah.isSurahLoaded,
+  isQariChange : state.qariAndSurah.isQariChange,
+  selectedQari : state.qariAndSurah.selectedQari,
+  selectedSurah : state.qariAndSurah.selectedSurah,
+  surahList : state.qariAndSurah.surahList,
 });
-export default connect(mapStateToProps, {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData})(PlayerDesign);
+export default connect(mapStateToProps, {GetAudioDuration, GetProgressBarValue, StartAndStartAudio, SurahComplete, ChangeSurah, ResetData, ResetChangeQariFlag})(PlayerDesign);
 
 class EachSvgComponent extends Component{
   render(){
@@ -144,3 +161,4 @@ class EachSvgComponent extends Component{
     )
   }
 }
+//'http://18.189.100.203:8080/islamcheck-audio/public/audio_files/abdullaah_3awwaad_al-juhaynee/'

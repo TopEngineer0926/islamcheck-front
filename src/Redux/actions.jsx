@@ -6,7 +6,9 @@ import { SELECTED_SURAH_ID,
   SURAH_COMPLETED, 
   SURAH_CHANGE, 
   SELECT_LANGUAGE,
-  SHUFFLE_PLAY} from './actionType';
+  SHUFFLE_PLAY,
+  CHANGE_LANGUAGE,
+  RESET_CHANGE_QARI_FLAG} from './actionType';
 import {server} from './server';
 
 export const StartLoader = (type) => ({
@@ -17,12 +19,9 @@ export const GetData = (api, actionType) => async dispatch  => {
   const requestOptions = {
     method: 'GET',
   };
-  console.log('********* Server Api **********');
-  console.log(server+api);
-  console.log('******************');
   fetch(server+api,requestOptions).then(response => response.json())
     .then(res=>{
-     // console.log(res);
+      //console.log(res);
       dispatch({
         type: actionType,
         payload: res
@@ -64,11 +63,19 @@ export const ChangeSurah = (title) => ({
   type: SURAH_CHANGE,
   payload: title
 });
-export const SelectedLanguage = (selectedLang) => ({
+export const SelectLanguage = (selectedLang) => ({
   type: SELECT_LANGUAGE,
   payload: selectedLang
+});
+export const OnChangeLanguage = () => ({
+  type: CHANGE_LANGUAGE,
+  payload: false
 });
 export const ShufflePlay = () => ({
   type: SHUFFLE_PLAY,
   payload: true
+});
+export const ResetChangeQariFlag = () => ({
+  type: RESET_CHANGE_QARI_FLAG,
+  payload: false
 });

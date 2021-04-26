@@ -7,9 +7,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import {connect} from 'react-redux';
 import {TAB_SECTIONS, SECTION_LOADER} from '../Redux/actionType';
-import {GetData, StartLoader} from '../Redux/actions';
+import {GetData, StartLoader, OnChangeLanguage} from '../Redux/actions';
 import {Loader} from '../loader';
-
 
 class BismillahComp extends Component {
   constructor(props){
@@ -20,10 +19,17 @@ class BismillahComp extends Component {
   componentDidMount(){
     this.props.GetData('sections/'+this.props.languageSelected.code, TAB_SECTIONS);
   }
+  componentDidUpdate(){
+    if(this.props.isLanguageChange){
+      this.props.OnChangeLanguage();
+      this.props.StartLoader(SECTION_LOADER);
+      this.props.GetData(`sections/${this.props.languageSelected.code}`, TAB_SECTIONS);
+    }
+  }
   tabPanels = () => {
     const tabsArray = [];
     for(let i = 0; i < this.props.sections.length ; i++){
-      tabsArray.push(<TabPanel key={i}>{this.props.sections[i].name !== 'Recitations from Haramain Taraweeh' ? <QariLIst id={this.props.sections[i].id}/> : <HaramainTaraweeh id={this.props.sections[i].id}/>}</TabPanel>)
+      tabsArray.push(<TabPanel key={i}>{this.props.sections[i].english_name !== 'Recitations from Haramain Taraweeh' ? <QariLIst id={this.props.sections[i].id}/> : <HaramainTaraweeh id={this.props.sections[i].id}/>}</TabPanel>)
     }
     return tabsArray;
   }
@@ -56,6 +62,7 @@ class BismillahComp extends Component {
 const mapStateToProps = state => ({
   sections : state.qariAndSurah.sections,
   isLoaderStart : state.qariAndSurah.isLoaderStart,
-  languageSelected : state.qariAndSurah.languageSelected
+  languageSelected : state.qariAndSurah.languageSelected,
+  isLanguageChange : state.qariAndSurah.isLanguageChange
 });
-export default connect(mapStateToProps, {GetData, StartLoader})(BismillahComp); 
+export default connect(mapStateToProps, {GetData, StartLoader, OnChangeLanguage})(BismillahComp); 

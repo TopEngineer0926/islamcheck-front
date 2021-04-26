@@ -1,1 +1,1 @@
- export const server = 'http://18.189.100.203:8080/islamcheck-audio/api/';
+ export const server = 'https://services-audio.islamcheck.com/api/';
